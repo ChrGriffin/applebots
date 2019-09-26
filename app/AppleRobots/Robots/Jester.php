@@ -2,15 +2,18 @@
 
 namespace App\AppleRobots\Robots;
 
+use App\AppleRobots\Actions\ActionInterface;
+use App\AppleRobots\Actions\Move;
+use App\AppleRobots\Actions\Plant;
 use Exception;
 
 class Jester extends Robot
 {
     /**
-     * @return array
+     * @return ActionInterface
      * @throws Exception
      */
-    public function act(): array
+    public function act(): ActionInterface
     {
         if($this->shouldMove()) {
 
@@ -18,15 +21,10 @@ class Jester extends Robot
                 $this->moveToRandomUnoccupiedSpot();
             }
 
-            return [
-                'action' => 'move',
-                'dest' => $this->getPosition()
-            ];
+            return new Move($this->positionX, $this->positionY);
         }
         else {
-            return [
-                'action' => 'plant'
-            ];
+            return new Plant;
         }
     }
 

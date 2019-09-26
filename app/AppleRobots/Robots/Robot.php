@@ -2,6 +2,7 @@
 
 namespace App\AppleRobots\Robots;
 
+use App\AppleRobots\Actions\ActionInterface;
 use App\AppleRobots\Grid;
 
 abstract class Robot
@@ -54,16 +55,5 @@ abstract class Robot
         $this->positionY = $positionY;
     }
 
-    /**
-     * @return array
-     */
-    public function getPosition(): array
-    {
-        return [
-            'x' => $this->positionX,
-            'y' => $this->positionY
-        ];
-    }
-
-    abstract function act(): array;
+    abstract function act(): ActionInterface;
 }
