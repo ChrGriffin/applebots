@@ -64,19 +64,15 @@ class Jester extends Robot
 
             switch($direction) {
                 case self::NORTH:
-                    info('North');
                     $positionY += 2;
                     break;
                 case self::EAST:
-                    info('East');
                     $positionX += 2;
                     break;
                 case self::SOUTH:
-                    info('South');
                     $positionY -= 2;
                     break;
                 case self::WEST:
-                    info('West');
                     $positionX -= 2;
                     break;
             }
