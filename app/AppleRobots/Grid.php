@@ -22,14 +22,16 @@ class Grid
     private $trees;
 
     /**
-     * @param array $field
+     * @param int $width
+     * @param int $height
+     * @param array $trees
      * @return void
      */
-    public function __construct(array $field)
+    public function __construct(int $width, int $height, array $trees)
     {
-        $this->width = $field['fieldSize']['width'];
-        $this->height = $field['fieldSize']['height'];
-        $this->trees = collect($field['trees'])
+        $this->width = $width;
+        $this->height = $height;
+        $this->trees = collect($trees)
             ->map(function (array $tree) {
                 return new Tree(
                     new Position($tree['position']['x'], $tree['position']['y']),
