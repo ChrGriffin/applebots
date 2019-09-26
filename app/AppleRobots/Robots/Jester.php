@@ -49,9 +49,9 @@ class Jester extends Robot
     }
 
     /**
-     * @return void
+     * @return Jester
      */
-    public function moveToRandomUnoccupiedSpot(): void
+    public function moveToRandomUnoccupiedSpot(): Jester
     {
         $directions = $this->directions;
         shuffle($directions);
@@ -71,5 +71,7 @@ class Jester extends Robot
                 break;
             }
         }
+
+        return $this;
     }
 }
