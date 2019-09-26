@@ -2,27 +2,22 @@
 
 namespace App\AppleRobots\Actions;
 
+use App\AppleRobots\Position;
+
 class Move implements ActionInterface
 {
     /**
-     * @var int
+     * @var Position
      */
-    private $positionX;
+    private $position;
 
     /**
-     * @var int
-     */
-    private $positionY;
-
-    /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @return void
      */
-    public function __construct(int $positionX, int $positionY)
+    public function __construct(Position $position)
     {
-        $this->positionX = $positionX;
-        $this->positionY = $positionY;
+        $this->position = $position;
     }
 
     /**
@@ -32,10 +27,7 @@ class Move implements ActionInterface
     {
         return [
             'action' => 'move',
-            'dest' => [
-                'x' => $this->positionX,
-                'y' => $this->positionY
-            ]
+            'dest' => $this->position->toArray()
         ];
     }
 }
