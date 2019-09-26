@@ -18,9 +18,10 @@ class JesterController extends Controller
      */
     public function index(Request $request)
     {
-        $grid = new Grid($request->input('field'));
-        $position = new Position($request->input('x'), $request->input('y'));
-        $jester = new Jester($position, $grid);
+        $jester = new Jester(
+            new Position($request->input('x'), $request->input('y')),
+            new Grid($request->input('field'))
+        );
 
         return response()->json($jester->act()->toArray());
     }
