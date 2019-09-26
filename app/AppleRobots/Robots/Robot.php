@@ -51,8 +51,30 @@ abstract class Robot
     public function __construct(int $positionX, int $positionY, Grid $grid)
     {
         $this->grid = $grid;
+        $this->setPosition($positionX, $positionY);
+    }
+
+    /**
+     * @return array
+     */
+    public function getPosition(): array
+    {
+        return [
+            'x' => $this->positionX,
+            'y' => $this->positionY
+        ];
+    }
+
+    /**
+     * @param int $positionX
+     * @param int $positionY
+     * @return Robot
+     */
+    public function setPosition(int $positionX, int $positionY): Robot
+    {
         $this->positionX = $positionX;
         $this->positionY = $positionY;
+        return $this;
     }
 
     abstract function act(): ActionInterface;

@@ -78,8 +78,7 @@ class Jester extends Robot
             }
 
             if($this->canMoveTo($positionX, $positionY)) {
-                $this->positionX = $positionX;
-                $this->positionY = $positionY;
+                $this->setPosition($positionX, $positionY);
                 break;
             }
         }
