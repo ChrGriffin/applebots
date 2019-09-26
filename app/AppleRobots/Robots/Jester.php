@@ -5,6 +5,7 @@ namespace App\AppleRobots\Robots;
 use App\AppleRobots\Actions\ActionInterface;
 use App\AppleRobots\Actions\Move;
 use App\AppleRobots\Actions\Plant;
+use App\AppleRobots\Directions\DirectionInterface;
 use Exception;
 
 class Jester extends Robot
@@ -52,33 +53,21 @@ class Jester extends Robot
      */
     public function moveToRandomUnoccupiedSpot(): void
     {
-        $directions = [
-            self::NORTH, self::EAST, self::SOUTH, self::WEST
-        ];
+        $directions = $this->directions;
         shuffle($directions);
 
-        $positionX = $this->positionX;
-        $positionY = $this->positionY;
+        $position = [
+            'x' => $this->positionX,
+            'y' => $this->positionY
+        ];
 
+        /** @var DirectionInterface $direction */
         foreach($directions as $direction) {
 
-            switch($direction) {
-                case self::NORTH:
-                    $positionY += 2;
-                    break;
-                case self::EAST:
-                    $positionX += 2;
-                    break;
-                case self::SOUTH:
-                    $positionY -= 2;
-                    break;
-                case self::WEST:
-                    $positionX -= 2;
-                    break;
-            }
+            $newPosition = $direction->transformPosition($position, 2);
 
-            if($this->canMoveTo($positionX, $positionY)) {
-                $this->setPosition($positionX, $positionY);
+            if($this->canMoveTo($newPosition['x'], $newPosition['y'])) {
+                $this->setPosition($newPosition['x'], $newPosition['y']);
                 break;
             }
         }

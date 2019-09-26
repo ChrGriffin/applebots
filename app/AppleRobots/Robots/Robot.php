@@ -3,29 +3,19 @@
 namespace App\AppleRobots\Robots;
 
 use App\AppleRobots\Actions\ActionInterface;
+use App\AppleRobots\Directions\DirectionInterface;
+use App\AppleRobots\Directions\East;
+use App\AppleRobots\Directions\North;
+use App\AppleRobots\Directions\South;
+use App\AppleRobots\Directions\West;
 use App\AppleRobots\Grid;
 
 abstract class Robot
 {
     /**
-     * @const int
+     * @var DirectionInterface[]
      */
-    const NORTH = 1;
-
-    /**
-     * @const int
-     */
-    const EAST = 2;
-
-    /**
-     * @const int
-     */
-    const SOUTH = 3;
-
-    /**
-     * @const int
-     */
-    const WEST = 4;
+    protected $directions = [];
 
     /**
      * @var Grid
@@ -51,6 +41,12 @@ abstract class Robot
     public function __construct(int $positionX, int $positionY, Grid $grid)
     {
         $this->grid = $grid;
+        $this->directions = [
+            'north' => new North,
+            'east'  => new East,
+            'south' => new South,
+            'west'  => new West
+        ];
         $this->setPosition($positionX, $positionY);
     }
 
