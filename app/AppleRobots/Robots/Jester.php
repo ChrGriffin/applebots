@@ -2,59 +2,10 @@
 
 namespace App\AppleRobots\Robots;
 
-use App\AppleRobots\Grid;
 use Exception;
 
-class Jester
+class Jester extends Robot
 {
-    /**
-     * @const int
-     */
-    const NORTH = 1;
-
-    /**
-     * @const int
-     */
-    const EAST = 2;
-
-    /**
-     * @const int
-     */
-    const SOUTH = 3;
-
-    /**
-     * @const int
-     */
-    const WEST = 4;
-
-    /**
-     * @var Grid
-     */
-    private $grid;
-
-    /**
-     * @var int
-     */
-    private $positionX;
-
-    /**
-     * @var int
-     */
-    private $positionY;
-
-    /**
-     * @param int $positionX
-     * @param int $positionY
-     * @param Grid $grid
-     * @return void
-     */
-    public function __construct(int $positionX, int $positionY, Grid $grid)
-    {
-        $this->grid = $grid;
-        $this->positionX = $positionX;
-        $this->positionY = $positionY;
-    }
-
     /**
      * @return array
      * @throws Exception
@@ -139,16 +90,4 @@ class Jester
             }
         }
     }
-
-    /**
-     * @return array
-     */
-    public function getPosition(): array
-    {
-        return [
-            'x' => $this->positionX,
-            'y' => $this->positionY
-        ];
-    }
-
 }
