@@ -6,6 +6,7 @@ use App\AppleRobots\Actions\ActionInterface;
 use App\AppleRobots\Actions\Move;
 use App\AppleRobots\Actions\Plant;
 use App\AppleRobots\Directions\DirectionInterface;
+use App\AppleRobots\Position;
 use Exception;
 
 class Jester extends Robot
@@ -22,7 +23,7 @@ class Jester extends Robot
                 $this->moveToRandomUnoccupiedSpot();
             }
 
-            return new Move($this->position->getPositionX(), $this->position->getPositionY());
+            return new Move($this->position);
         }
         else {
             return new Plant;
@@ -34,18 +35,17 @@ class Jester extends Robot
      */
     public function shouldMove(): bool
     {
-        return $this->grid->pointIsOccupied($this->position->getPositionX(), $this->position->getPositionY());
+        return $this->grid->pointIsOccupied($this->position);
     }
 
     /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @return bool
      */
-    public function canMoveTo(int $positionX, int $positionY): bool
+    public function canMoveTo(Position $position): bool
     {
-        return !$this->grid->pointIsOccupied($positionX, $positionY)
-            && $this->grid->pointIsWithinBounds($positionX, $positionY);
+        return !$this->grid->pointIsOccupied($position)
+            && $this->grid->pointIsWithinBounds($position);
     }
 
     /**
@@ -60,9 +60,10 @@ class Jester extends Robot
         foreach($directions as $direction) {
 
             $newPosition = $direction->transformPosition($this->position->toArray(), 2);
+            $newPosition = new Position($newPosition['x'], $newPosition['y']);
 
-            if($this->canMoveTo($newPosition['x'], $newPosition['y'])) {
-                $this->position->setPosition($newPosition['x'], $newPosition['y']);
+            if($this->canMoveTo($newPosition)) {
+                $this->position->setPosition($newPosition->getPositionX(), $newPosition->getPositionY());
                 break;
             }
         }

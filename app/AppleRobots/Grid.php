@@ -40,26 +40,25 @@ class Grid
     }
 
     /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @return bool
      */
-    public function pointIsOccupied(int $positionX, int $positionY): bool
+    public function pointIsOccupied(Position $position): bool
     {
         return $this->trees
-            ->filter(function (Tree $tree) use ($positionX, $positionY) {
-                return $tree->occupiesCoordinates($positionX, $positionY);
+            ->filter(function (Tree $tree) use ($position) {
+                return $tree->occupiesCoordinates($position->getPositionX(), $position->getPositionY());
             })
             ->isNotEmpty();
     }
 
     /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @return bool
      */
-    public function pointIsWithinBounds(int $positionX, int $positionY): bool
+    public function pointIsWithinBounds(Position $position): bool
     {
-        return $positionX > 0 && $positionX < $this->width && $positionY > 0 && $positionY < $this->height;
+        return $position->getPositionX() > 0 && $position->getPositionX() < $this->width
+            && $position->getPositionY() > 0 && $position->getPositionY() < $this->height;
     }
 }
