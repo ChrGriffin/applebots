@@ -1,13 +1,30 @@
 <?php
 
-namespace App;
+namespace App\AppleRobots;
+
+use Illuminate\Support\Collection;
 
 class Grid
 {
+    /**
+     * @var int
+     */
     private $width;
+
+    /**
+     * @var int
+     */
     private $height;
+
+    /**
+     * @var Collection
+     */
     private $trees;
 
+    /**
+     * @param array $field
+     * @return void
+     */
     public function __construct(array $field)
     {
         $this->width = $field['fieldSize']['width'];
@@ -22,7 +39,12 @@ class Grid
             });
     }
 
-    public function pointIsOccupied($positionX, $positionY)
+    /**
+     * @param int $positionX
+     * @param int $positionY
+     * @return bool
+     */
+    public function pointIsOccupied(int $positionX, int $positionY): bool
     {
         return $this->trees
             ->filter(function (Tree $tree) use ($positionX, $positionY) {
@@ -31,7 +53,12 @@ class Grid
             ->isNotEmpty();
     }
 
-    public function pointIsWithinBounds($positionX, $positionY)
+    /**
+     * @param int $positionX
+     * @param int $positionY
+     * @return bool
+     */
+    public function pointIsWithinBounds(int $positionX, int $positionY): bool
     {
         return $positionX > 0 && $positionX < $this->width && $positionY > 0 && $positionY < $this->height;
     }

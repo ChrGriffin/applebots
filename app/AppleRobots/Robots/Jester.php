@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Robots;
+namespace App\AppleRobots\Robots;
 
-use App\Grid;
+use App\AppleRobots\Grid;
+use Exception;
 
 class Jester
 {
@@ -52,6 +53,30 @@ class Jester
         $this->grid = $grid;
         $this->positionX = $positionX;
         $this->positionY = $positionY;
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function act(): array
+    {
+        if($this->shouldMove()) {
+
+            for($i = 0; $i < random_int(4, 5); $i++) {
+                $this->moveToRandomUnoccupiedSpot();
+            }
+
+            return [
+                'action' => 'move',
+                'dest' => $this->getPosition()
+            ];
+        }
+        else {
+            return [
+                'action' => 'plant'
+            ];
+        }
     }
 
     /**
