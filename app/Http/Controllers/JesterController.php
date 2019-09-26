@@ -21,8 +21,8 @@ class JesterController extends Controller
         $jester = new Jester(
             new Position($request->input('x'), $request->input('y')),
             new Grid(
-                $request->input('field.width'),
-                $request->input('field.height'),
+                $request->input('field.fieldSize.width'),
+                $request->input('field.fieldSize.height'),
                 $request->input('field.trees') ?? []
             )
         );
