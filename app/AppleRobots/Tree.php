@@ -5,14 +5,9 @@ namespace App\AppleRobots;
 class Tree
 {
     /**
-     * @var int
+     * @var Position
      */
-    private $positionX;
-
-    /**
-     * @var int
-     */
-    private $positionY;
+    private $position;
 
     /**
      * @var float
@@ -20,26 +15,26 @@ class Tree
     private $radius;
 
     /**
-     * @param int $x
-     * @param int $y
+     * @param Position $position
      * @param float $radius
      * @return void
      */
-    public function __construct(int $x, int $y, float $radius)
+    public function __construct(Position $position, float $radius)
     {
-        $this->positionX = $x;
-        $this->positionY = $y;
+        $this->position = $position;
         $this->radius = $radius;
     }
 
     /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @return bool
      */
-    public function occupiesCoordinates(int $positionX, int $positionY): bool
+    public function occupiesPosition(Position $position): bool
     {
-        return (($positionX - $this->positionX) * ($positionX - $this->positionX) +
-            ($positionY - $this->positionY) * ($positionY - $this->positionY) <= $this->radius * $this->radius);
+        return (($position->getPositionX() - $this->position->getPositionX())
+            * ($position->getPositionX() - $this->position->getPositionX()) +
+            ($position->getPositionY() - $this->position->getPositionY())
+            * ($position->getPositionY() - $this->position->getPositionY())
+            <= $this->radius * $this->radius);
     }
 }

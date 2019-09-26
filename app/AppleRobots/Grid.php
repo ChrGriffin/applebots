@@ -32,8 +32,7 @@ class Grid
         $this->trees = collect($field['trees'])
             ->map(function (array $tree) {
                 return new Tree(
-                    $tree['position']['x'],
-                    $tree['position']['y'],
+                    new Position($tree['position']['x'], $tree['position']['y']),
                     $tree['radius']
                 );
             });
@@ -47,7 +46,7 @@ class Grid
     {
         return $this->trees
             ->filter(function (Tree $tree) use ($position) {
-                return $tree->occupiesCoordinates($position->getPositionX(), $position->getPositionY());
+                return $tree->occupiesPosition($position);
             })
             ->isNotEmpty();
     }
