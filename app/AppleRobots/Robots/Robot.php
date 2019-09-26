@@ -9,6 +9,7 @@ use App\AppleRobots\Directions\North;
 use App\AppleRobots\Directions\South;
 use App\AppleRobots\Directions\West;
 use App\AppleRobots\Grid;
+use App\AppleRobots\Position;
 
 abstract class Robot
 {
@@ -23,22 +24,16 @@ abstract class Robot
     protected $grid;
 
     /**
-     * @var int
+     * @var Position
      */
-    protected $positionX;
+    protected $position;
 
     /**
-     * @var int
-     */
-    protected $positionY;
-
-    /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @param Grid $grid
      * @return void
      */
-    public function __construct(int $positionX, int $positionY, Grid $grid)
+    public function __construct(Position $position, Grid $grid)
     {
         $this->grid = $grid;
         $this->directions = [
@@ -47,29 +42,24 @@ abstract class Robot
             'south' => new South,
             'west'  => new West
         ];
-        $this->setPosition($positionX, $positionY);
+        $this->setPosition($position);
     }
 
     /**
-     * @return array
+     * @return Position
      */
-    public function getPosition(): array
+    public function getPosition(): Position
     {
-        return [
-            'x' => $this->positionX,
-            'y' => $this->positionY
-        ];
+        return $this->position;
     }
 
     /**
-     * @param int $positionX
-     * @param int $positionY
+     * @param Position $position
      * @return Robot
      */
-    public function setPosition(int $positionX, int $positionY): Robot
+    public function setPosition(Position $position): Robot
     {
-        $this->positionX = $positionX;
-        $this->positionY = $positionY;
+        $this->position = $position;
         return $this;
     }
 

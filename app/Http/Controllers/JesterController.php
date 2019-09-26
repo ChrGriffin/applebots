@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AppleRobots\Grid;
+use App\AppleRobots\Position;
 use App\AppleRobots\Robots\Jester;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,8 @@ class JesterController extends Controller
     public function index(Request $request)
     {
         $grid = new Grid($request->input('field'));
-        $jester = new Jester($request->input('x'), $request->input('y'), $grid);
+        $position = new Position($request->input('x'), $request->input('y'));
+        $jester = new Jester($position, $grid);
 
         return response()->json($jester->act()->toArray());
     }

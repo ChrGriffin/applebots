@@ -22,7 +22,7 @@ class Jester extends Robot
                 $this->moveToRandomUnoccupiedSpot();
             }
 
-            return new Move($this->positionX, $this->positionY);
+            return new Move($this->position->getPositionX(), $this->position->getPositionY());
         }
         else {
             return new Plant;
@@ -34,7 +34,7 @@ class Jester extends Robot
      */
     public function shouldMove(): bool
     {
-        return $this->grid->pointIsOccupied($this->positionX, $this->positionY);
+        return $this->grid->pointIsOccupied($this->position->getPositionX(), $this->position->getPositionY());
     }
 
     /**
@@ -56,18 +56,13 @@ class Jester extends Robot
         $directions = $this->directions;
         shuffle($directions);
 
-        $position = [
-            'x' => $this->positionX,
-            'y' => $this->positionY
-        ];
-
         /** @var DirectionInterface $direction */
         foreach($directions as $direction) {
 
-            $newPosition = $direction->transformPosition($position, 2);
+            $newPosition = $direction->transformPosition($this->position->toArray(), 2);
 
             if($this->canMoveTo($newPosition['x'], $newPosition['y'])) {
-                $this->setPosition($newPosition['x'], $newPosition['y']);
+                $this->position->setPosition($newPosition['x'], $newPosition['y']);
                 break;
             }
         }
